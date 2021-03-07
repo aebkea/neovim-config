@@ -81,3 +81,13 @@ context "math()"
 snippet "(\\?\w+)(,\.|\.,)" "Vector postfix" riA
 \vec{`!p snip.rv=match.group(1)`}
 endsnippet
+
+context "math()"
+snippet "(?<![\\a-zA-Z0-9])([A-Z])sf" "mathscr" riA
+\mathscr{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+snippet "(?<![\\a-zA-Z0-9])([A-Z])bf" "mathbf" riA
+\mathbf{`!p snip.rv=match.group(1)`}
+endsnippet
