@@ -4,7 +4,24 @@
 
 " PATHOGEN INSTALL
 
-execute pathogen#infect()
+" execute pathogen#infect()
+
+" VIM-PLUG INSTALL
+
+call plug#begin('~/.config/nvim/plugged')
+
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'sirver/ultisnips'
+Plug 'bling/vim-airline'
+Plug 'micha/vim-colors-solarized'
+Plug 'lervag/vimtex'
+Plug 'neoclide/coc.nvim'
+
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+call plug#end()
 
 " BASIC CONFIGURATION
 
@@ -103,3 +120,9 @@ inoremap <silent><expr> <leader>l pumvisible() ? coc#_select_confirm() :
 "coc-snippets
 
 "imap <tab> <Plug>(coc-snippets-expand-jump)
+
+" Telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
