@@ -12,16 +12,52 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'sirver/ultisnips'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'hoob3rt/lualine.nvim'
+Plug 'ryanoasis/vim-devicons'
 Plug 'micha/vim-colors-solarized'
 Plug 'lervag/vimtex'
-Plug 'neoclide/coc.nvim'
+" Plug 'neoclide/coc.nvim'
+" Plug 'nvim-lua/completion-nvim'
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
+
 call plug#end()
+
+" Lsp-Install
+
+lua <<EOF
+require'lspinstall'.setup()
+
+local servers = require'lspinstall'.installed_servers()
+for _, server in pairs(servers) do
+	require'lspconfig'[server].setup{}
+end
+EOF
+
+" TREESITTER CONFIG
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ignore_install = { }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = { },  -- list of language that will be disabled
+  },
+}
+EOF
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
 " BASIC CONFIGURATION
 
@@ -55,8 +91,9 @@ if (empty($TMUX))
 	endif
 endif
 
-let g:onedark_terminal_italics=1
+" let g:onedark_terminal_italics=1
 
+let g:airline_powerline_fonts = 1
 let g:airline_theme='onedark'
 colorscheme onedark
 
@@ -68,11 +105,14 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 "delimitMate Config
 
-let delimitMate_smart_matchpairs = '^\%(\w\|\!\|[£]\|[^[:punct:][:space:]]\)'
+" let delimitMate_smart_matchpairs = '^\%(\w\|\!\|[£]\|[^[:punct:][:space:]]\)'
 
 "TeX Config
 
 let g:tex_indent_brace = 0
+let g:vimtex_view_enabled = 0
+let g:vimtex_syntax_enabled = 0
+let g:vimtex_complete_enabled = 0
 
 "EasyMotion
 
@@ -95,27 +135,27 @@ set cmdheight=2
 set updatetime=300
 
 "--Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
+" set shortmess+=c
 
-"--Always show the signcolumn, otherwise it would shift the text each time
-"--diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-	" Recently vim can merge signcolumn and number column into one
-	set signcolumn=number
-else
-	set signcolumn=yes
-endif
+" "--Always show the signcolumn, otherwise it would shift the text each time
+" "--diagnostics appear/become resolved.
+" if has("patch-8.1.1564")
+" 	" Recently vim can merge signcolumn and number column into one
+" 	set signcolumn=number
+" else
+" 	set signcolumn=yes
+" endif
 
-"--Use <c-space> to trigger completion list.
-if has('nvim')
-	inoremap <silent><expr> <c-space> coc#refresh()
-else
-	inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-"--Autocomplete on <leader>-l
-inoremap <silent><expr> <leader>l pumvisible() ? coc#_select_confirm() :
-			\ "\<C-g>u\<leader>l"
+" "--Use <c-space> to trigger completion list.
+" if has('nvim')
+" 	inoremap <silent><expr> <c-space> coc#refresh()
+" else
+" 	inoremap <silent><expr> <c-@> coc#refresh()
+" endif
+" 
+" "--Autocomplete on <leader>-l
+" inoremap <silent><expr> <leader>l pumvisible() ? coc#_select_confirm() :
+" 			\ "\<C-g>u\<leader>l"
 
 "coc-snippets
 
