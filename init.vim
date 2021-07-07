@@ -12,14 +12,12 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'sirver/ultisnips'
+Plug 'psliwka/vim-smoothie'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'hoob3rt/lualine.nvim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'micha/vim-colors-solarized'
 Plug 'lervag/vimtex'
-" Plug 'neoclide/coc.nvim'
-" Plug 'nvim-lua/completion-nvim'
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -92,7 +90,13 @@ if (empty($TMUX))
 endif
 
 let g:airline_powerline_fonts = 1
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+let g:airline_symbols.maxlinenr = ' '
+let g:airline_symbols.whitespace = ''
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_theme='sonokai'
 colorscheme sonokai
