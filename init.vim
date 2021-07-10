@@ -16,6 +16,7 @@ Plug 'psliwka/vim-smoothie'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'micha/vim-colors-solarized'
 Plug 'lervag/vimtex'
 
@@ -37,7 +38,7 @@ require'lspinstall'.setup()
 
 local servers = require'lspinstall'.installed_servers()
 for _, server in pairs(servers) do
-	require'lspconfig'[server].setup{}
+    require'lspconfig'[server].setup{}
 end
 EOF
 
@@ -59,20 +60,21 @@ set foldexpr=nvim_treesitter#foldexpr()
 
 " BASIC CONFIGURATION
 
-syntax on	" syntax highlighting
+syntax on   " syntax highlighting
 set linebreak
 set showmatch
-set nohlsearch	" highlight all search results
-set incsearch	" show incremental search results as you type
-set number	" display line number
-set noswapfile	" disable swap file
-let mapleader = ','	" remap the leader to comma
-inoremap jk <ESC>	" remap escape to "jk"
+set nohlsearch  " highlight all search results
+set incsearch   " show incremental search results as you type
+set number  " display line number
+set noswapfile  " disable swap file
+let mapleader = ',' " remap the leader to comma
+inoremap jk <ESC>" remap escape to "jk"
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set noexpandtab
+set expandtab
 set breakindent
+set clipboard=unnamedplus
 
 " COLOR
 
@@ -81,17 +83,17 @@ set breakindent
 "information.)
 
 if (empty($TMUX))
-	if (has("nvim"))
-		let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-	endif
-	if (has("termguicolors"))
-		set termguicolors
-	endif
+    if (has("nvim"))
+        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    endif
+    if (has("termguicolors"))
+        set termguicolors
+    endif
 endif
 
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 let g:airline_symbols.maxlinenr = ' '
 let g:airline_symbols.whitespace = ''
@@ -100,6 +102,8 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_theme='sonokai'
 colorscheme sonokai
+
+let g:indent_blankline_char = '│'
 
 "Ultisnips Config
 
@@ -144,22 +148,22 @@ set updatetime=300
 " "--Always show the signcolumn, otherwise it would shift the text each time
 " "--diagnostics appear/become resolved.
 " if has("patch-8.1.1564")
-" 	" Recently vim can merge signcolumn and number column into one
-" 	set signcolumn=number
+"   " Recently vim can merge signcolumn and number column into one
+"   set signcolumn=number
 " else
-" 	set signcolumn=yes
+"   set signcolumn=yes
 " endif
 
 " "--Use <c-space> to trigger completion list.
 " if has('nvim')
-" 	inoremap <silent><expr> <c-space> coc#refresh()
+"   inoremap <silent><expr> <c-space> coc#refresh()
 " else
-" 	inoremap <silent><expr> <c-@> coc#refresh()
+"   inoremap <silent><expr> <c-@> coc#refresh()
 " endif
 " 
 " "--Autocomplete on <leader>-l
 " inoremap <silent><expr> <leader>l pumvisible() ? coc#_select_confirm() :
-" 			\ "\<C-g>u\<leader>l"
+"           \ "\<C-g>u\<leader>l"
 
 "coc-snippets
 
